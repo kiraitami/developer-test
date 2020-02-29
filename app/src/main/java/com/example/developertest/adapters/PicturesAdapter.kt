@@ -1,12 +1,15 @@
 package com.example.developertest.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.developertest.R
+import com.example.developertest.activities.FullScreenImageActivity
 import com.example.developertest.models.Picture
+import com.example.developertest.strings.PICTURE_URL
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.adapter_image.view.*
 
@@ -22,7 +25,9 @@ class PicturesAdapter (val context: Context,
         }
 
         holder.itemView.setOnClickListener {
-
+            val intent = Intent(context, FullScreenImageActivity::class.java)
+            intent.putExtra(PICTURE_URL, picture.url)
+            context.startActivity(intent)
         }
 
     }

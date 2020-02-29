@@ -21,8 +21,6 @@ import retrofit2.Response
  * A simple [Fragment] subclass.
  */
 
-const val USER_ID: String = "user_id"
-
 class UsersFragment : Fragment() {
 
     override fun onCreateView(

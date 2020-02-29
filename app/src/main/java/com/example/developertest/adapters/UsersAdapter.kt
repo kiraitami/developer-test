@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.developertest.R
 import com.example.developertest.activities.PostsActivity
-import com.example.developertest.fragments.USER_ID
 import com.example.developertest.models.User
+import com.example.developertest.strings.USER_ID
 import kotlinx.android.synthetic.main.adapter_user.view.*
 
 class UsersAdapter( private val userList: List<User>,

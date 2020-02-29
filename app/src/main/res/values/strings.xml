@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Developer Test</string>
     <string name="bottom_menu_title_users">Users</string>
-    <string name="bottom_menu_title_pictures">Pictures</string>
+    <string name="bottom_menu_title_pictures">Photos</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="adapter_user_label_id">Id:</string>
+    <string name="adapter_user_label_email">Email:</string>
+    <string name="adapter_user_label_company">Company:</string>
+    <string name="adapter_user_label_city">City:</string>
 </resources>

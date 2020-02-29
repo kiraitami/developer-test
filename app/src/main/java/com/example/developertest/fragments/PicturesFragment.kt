@@ -38,7 +38,7 @@ class PicturesFragment : Fragment() {
     private fun showPictures(pictureList: List<Picture>){
         val recyclerView = pictures_recycler_view
         recyclerView.adapter = PicturesAdapter(this.requireContext(), pictureList)
-        recyclerView.layoutManager = GridLayoutManager(this.requireContext(), 4)
+        recyclerView.layoutManager = GridLayoutManager(this.requireContext(), 2)
     }
 
     private fun getPicturesByRetrofit(){

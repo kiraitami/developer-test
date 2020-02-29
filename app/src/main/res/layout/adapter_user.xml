@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="2dp"
-    app:contentPadding="8dp">
+    app:contentPadding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,9 +14,9 @@
 
         <TextView
             android:id="@+id/adapter_user_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="UserName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:maxLines="1"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
 
@@ -26,19 +26,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingEnd="4dp"
-                android:text="ID: "
-                android:textSize="12sp" />
+                style="@style/LabelAdapterUser"
+                android:text="@string/adapter_user_label_id" />
 
             <TextView
                 android:id="@+id/adapter_user_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="UserName"
-                android:textColor="@android:color/black" />
+                style="@style/DataAdapterUser" />
         </LinearLayout>
 
         <LinearLayout
@@ -47,19 +40,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingEnd="4dp"
-                android:text="ID: "
-                android:textSize="12sp" />
+                style="@style/LabelAdapterUser"
+                android:text="@string/adapter_user_label_email" />
 
             <TextView
                 android:id="@+id/adapter_user_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="UserName"
-                android:textColor="@android:color/black" />
+                style="@style/DataAdapterUser" />
         </LinearLayout>
 
         <LinearLayout
@@ -68,19 +54,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingEnd="4dp"
-                android:text="ID: "
-                android:textSize="12sp" />
+                style="@style/LabelAdapterUser"
+                android:text="@string/adapter_user_label_company" />
 
             <TextView
                 android:id="@+id/adapter_user_company"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="UserName"
-                android:textColor="@android:color/black" />
+                style="@style/DataAdapterUser" />
         </LinearLayout>
 
         <LinearLayout
@@ -89,19 +68,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingEnd="4dp"
-                android:text="ID: "
-                android:textSize="12sp" />
+                style="@style/LabelAdapterUser"
+                android:text="@string/adapter_user_label_city" />
 
             <TextView
                 android:id="@+id/adapter_user_city"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="UserName"
-                android:textColor="@android:color/black" />
+                style="@style/DataAdapterUser" />
         </LinearLayout>
 
     </LinearLayout>

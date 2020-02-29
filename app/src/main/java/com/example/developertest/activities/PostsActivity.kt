@@ -6,9 +6,9 @@ import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.developertest.R
 import com.example.developertest.adapters.PostsAdapter
-import com.example.developertest.fragments.USER_ID
 import com.example.developertest.models.Post
 import com.example.developertest.network.RetrofitConfig
+import com.example.developertest.strings.USER_ID
 import kotlinx.android.synthetic.main.activity_posts.*
 import retrofit2.Call
 import retrofit2.Callback
