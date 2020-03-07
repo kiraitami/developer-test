@@ -3,6 +3,9 @@
     <string name="bottom_menu_title_users">Users</string>
     <string name="bottom_menu_title_pictures">Photos</string>
 
+    <string name="toolbar_title_users">Users</string>
+    <string name="toolbar_title_photos">Photos</string>
+
     <string name="adapter_user_label_id">Id:</string>
     <string name="adapter_user_label_email">Email:</string>
     <string name="adapter_user_label_company">Company:</string>

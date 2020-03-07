@@ -18,6 +18,8 @@ class FullScreenImageActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_full_screen_image)
 
+        supportActionBar?.hide()
+
         val imageUrl = intent.getStringExtra(PICTURE_URL) ?: ""
 
         val imageView = full_screen_image_view

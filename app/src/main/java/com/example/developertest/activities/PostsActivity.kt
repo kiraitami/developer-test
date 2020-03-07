@@ -2,7 +2,6 @@ package com.example.developertest.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.developertest.R
@@ -10,13 +9,11 @@ import com.example.developertest.adapters.PostsAdapter
 import com.example.developertest.models.Post
 import com.example.developertest.network.RetrofitConfig
 import com.example.developertest.strings.USER_ID
+import com.example.developertest.strings.USER_NAME
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_posts.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class PostsActivity : AppCompatActivity() {
 
@@ -27,6 +24,10 @@ class PostsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_posts)
 
         val userId = intent.getStringExtra(USER_ID) ?: ""
+        val userName = intent.getStringExtra(USER_NAME) ?: "Posts"
+
+        supportActionBar?.title = userName
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         getPostsByRetrofit(userId)
     }
@@ -34,6 +35,11 @@ class PostsActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         disposable?.dispose()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 
     private fun showPosts(postList: List<Post>){

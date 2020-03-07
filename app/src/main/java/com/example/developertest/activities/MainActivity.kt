@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         initBottomNavigation()
         changeFragment(UsersFragment())
     }
@@ -27,6 +26,14 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun changeFragment(fragment: Fragment){
+
+        supportActionBar?.title = resources.getText(
+            if (fragment is UsersFragment)
+                R.string.toolbar_title_users
+            else
+                R.string.toolbar_title_photos
+        )
+
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.main_frame_layout, fragment)

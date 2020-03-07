@@ -11,6 +11,7 @@ import com.example.developertest.R
 import com.example.developertest.activities.PostsActivity
 import com.example.developertest.models.User
 import com.example.developertest.strings.USER_ID
+import com.example.developertest.strings.USER_NAME
 import kotlinx.android.synthetic.main.adapter_user.view.*
 
 class UsersAdapter( private val userList: List<User>,
@@ -26,6 +27,7 @@ class UsersAdapter( private val userList: List<User>,
         holder.itemView.setOnClickListener{
             val intent = Intent(context, PostsActivity::class.java)
             intent.putExtra(USER_ID, user.id)
+            intent.putExtra(USER_NAME, user.name)
             context.startActivity(intent)
         }
     }
