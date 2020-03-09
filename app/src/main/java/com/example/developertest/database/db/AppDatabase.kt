@@ -4,15 +4,18 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.developertest.database.dao.PicturesDao
 import com.example.developertest.database.dao.PostDao
 import com.example.developertest.database.dao.UserDao
+import com.example.developertest.database.entities.PictureEntity
 import com.example.developertest.database.entities.PostEntity
 import com.example.developertest.database.entities.UserEntity
 
-@Database(entities = [UserEntity::class, PostEntity::class], version = 4)
+@Database(entities = [UserEntity::class, PostEntity::class, PictureEntity::class], version = 5)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao() : UserDao
     abstract fun postDao() : PostDao
+    abstract fun pictureDao() : PicturesDao
 
     companion object {
         private var INSTANCE: AppDatabase? = null
