@@ -10,8 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.developertest.R
 import com.example.developertest.adapters.UsersAdapter
+import com.example.developertest.database.db.AppDatabase
+import com.example.developertest.database.entities.UserEntity
 import com.example.developertest.models.User
 import com.example.developertest.network.RetrofitConfig
+import com.example.developertest.network.isOnline
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -34,8 +37,12 @@ class UsersFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        getUsersByRetrofit()
-
+        if (isOnline(requireContext())) {
+            getUsersByRetrofit()
+        }
+        else {
+            getUsersFromDatabase()
+        }
     }
 
     override fun onPause() {
@@ -52,7 +59,11 @@ class UsersFragment : Fragment() {
 
     private fun getUsersByRetrofit(){
         disposable = RetrofitConfig().endPointService().getListOfUsers()
-            .subscribeOn(Schedulers.io())
+            .subscribeOn(Schedulers.computation())
+            .doOnEach { result ->
+                val db = AppDatabase.getInstance(requireContext()).userDao()
+                result.value?.forEach { db.insertUser(it.convertToUserEntity()) }
+            }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { result -> showUsers(result.sortedBy { it.name }) },
@@ -74,6 +85,20 @@ class UsersFragment : Fragment() {
             }
         })
          */
+    }
+
+    private fun getUsersFromDatabase(){
+        disposable = AppDatabase.getInstance(requireContext()).userDao().getUsersFromDb()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { result -> showUsers(result.convertToUserList()) },
+                { error -> Toast.makeText(context, error.message, Toast.LENGTH_LONG).show() }
+            )
+    }
+
+    private fun List<UserEntity>.convertToUserList() : List<User> {
+       return this.map { entity -> entity.convertToUser() }.sortedBy { it.name }
     }
 
 }

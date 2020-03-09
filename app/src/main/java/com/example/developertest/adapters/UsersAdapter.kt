@@ -55,7 +55,7 @@ class UsersAdapter( private val userList: List<User>,
             id.text = user.id
             email.text = user.email
             city.text = user.address.city
-            company.text = user.company.name
+            company.text = user.company.companyName
         }
     }
 }

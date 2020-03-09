@@ -1,7 +1,10 @@
 package com.example.developertest.models
 
+import com.google.gson.annotations.SerializedName
+
 data class Company (
-    val name: String,
+    @SerializedName("name")
+    val companyName: String,
     val catchPhrase: String,
     val bs: String
 )

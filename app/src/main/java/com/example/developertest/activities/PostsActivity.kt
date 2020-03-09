@@ -6,8 +6,11 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.developertest.R
 import com.example.developertest.adapters.PostsAdapter
+import com.example.developertest.database.db.AppDatabase
+import com.example.developertest.database.entities.PostEntity
 import com.example.developertest.models.Post
 import com.example.developertest.network.RetrofitConfig
+import com.example.developertest.network.isOnline
 import com.example.developertest.strings.USER_ID
 import com.example.developertest.strings.USER_NAME
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,18 +21,22 @@ import kotlinx.android.synthetic.main.activity_posts.*
 class PostsActivity : AppCompatActivity() {
 
     var disposable: Disposable? = null
+    var userId: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_posts)
 
-        val userId = intent.getStringExtra(USER_ID) ?: ""
+        userId = intent.getStringExtra(USER_ID) ?: ""
         val userName = intent.getStringExtra(USER_NAME) ?: "Posts"
 
         supportActionBar?.title = userName
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        getPostsByRetrofit(userId)
+        if (isOnline(this))
+            getPostsByRetrofit(userId)
+        else
+            getPostsFromDatabase()
     }
 
     override fun onStop() {
@@ -49,29 +56,30 @@ class PostsActivity : AppCompatActivity() {
     }
 
     private fun getPostsByRetrofit(userId: String){
-
         disposable = RetrofitConfig().endPointService().getUserPublications(userId)
-            .subscribeOn(Schedulers.io())
+            .subscribeOn(Schedulers.computation())
+            .doOnEach { result ->
+                val db = AppDatabase.getInstance(this).postDao()
+                result.value?.forEach { db.insertPost(it.convertToPostEntity()) }
+            }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { result -> showPosts(result) },
                 { error -> Toast.makeText(this, error.message, Toast.LENGTH_LONG).show() }
             )
+    }
 
-        /*
-        val call = RetrofitConfig().endPointService().getUserPublications(userId)
-        call.enqueue(object : Callback<List<Post>?> {
-            override fun onResponse(call: Call<List<Post>?>, response: Response<List<Post>?>) {
-                response?.body()?.let {
-                    val postList: List<Post> = it
-                    showPosts(postList)
-                }
-            }
+    private fun getPostsFromDatabase() {
+        disposable = AppDatabase.getInstance(this).postDao().getPostsFromDb(userId.toInt())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { result -> showPosts(result.convertToPostList()) },
+                { error -> Toast.makeText(this, error.message, Toast.LENGTH_LONG).show() }
+            )
+    }
 
-            override fun onFailure(call: Call<List<Post>?>, t: Throwable) {
-                Log.e("ERROR", t?.message)
-            }
-        })
-         */
+    private fun List<PostEntity>.convertToPostList() : List<Post> {
+        return this.map { entity -> entity.convertToPost() }
     }
 }
